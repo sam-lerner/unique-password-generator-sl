@@ -14,7 +14,7 @@ At least one option must be selected.
 
 ## Mock-Up
 
-The following is an image of the website as it displays on load:
+The following is an animation of the expected website interaction:
 
 ![website demo](./password_nav_crop.gif)
 
