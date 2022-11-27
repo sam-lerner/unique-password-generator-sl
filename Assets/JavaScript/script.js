@@ -1,24 +1,23 @@
-// To do:
-// Create prompts for password criteria
-// Allow user to select what to include
-// User can choose length of 8-128 characters
-// Options: lower case, uppercase, numeric, special characters
-// At least one character of each type selected must be included
-// Password displayed in an alert or written to the page
-
-
 // Assignment code here
 
 // Variables:
-var lowerCase = ['a,b,c,d,e,f,g,h,'].split(',')
-var upperCase = ['A,B,C,D,E,F,G,H'].split(',')
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var specialCharacter = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "?", "/", "-", ":", ";", "[", "]", "{", "}", ".", "<", ">", "=", "_", "`", "|", "~"];
 
 
 // Start of the function!
-function passwordCreate() {
+function generatePassword() {
 
+  console.log("Here we go!");
+
+  // Array for results as they are generated
+  var setPassword = [];
+  // Array for the types of characters to include
+  var possibleChar = [];
+  // Array to ensure characters of each type selected are included
+  var guaranteedChar = [];
   // First, determine length
   var userLength = parseInt(
     prompt("Please enter a password length between 8-128.")
@@ -27,7 +26,7 @@ function passwordCreate() {
 
   // Is it a numeric value?
   if (Number.isNaN(userLength)) {
-    alert("Password must be a numberic value");
+    alert("Password must be a numeric value");
     return null;
   }
   // Make sure it's between 8-128
@@ -52,70 +51,95 @@ function passwordCreate() {
     return null;
   }
 
+  // See the results
+  console.log(hasLowerCase);
+  console.log(hasUpperCase);
+  console.log(hasNumber);
+  console.log(hasSpecialCharacter);
+
   // Store the user inputs
   var charactersIncluded = {
     userLength: userLength,
-    haslowerCase: haslowerCase,
+    hasLowerCase: hasLowerCase,
     hasUpperCase: hasUpperCase,
     hasNumber: hasNumber,
     hasSpecialCharacter: hasSpecialCharacter
   };
+  randomizePassword();
   console.log(charactersIncluded);
-  return charactersIncluded;
-
-  // Now we need to randomize arrays
-  function randomizeArray(arr) {
-    var randomI = Math.floor(Math.random() * arr.length);
-    var radomChar = arr[randomI];
-    return randomChar;
-  }
 
   // Generate the actual password
-  function generatePassword() {
+  function randomizePassword() {
+
     // New variable based on the user input
-    var userOptions = charactersIncluded();
-    // Array for results as they are generated
-    var resultChar = [];
-    // Array for the types of characters to include
-    var possibleChar = ['a', 'b'];
-    // Array to ensure characters of each type selected are included
-    var guaranteedChar = [];
+    var userOptions = charactersIncluded;
+
     // Make sure the user selected options
-    if (!userOptions) return null;
+    if (!userOptions) {
+      return null;
+    }
+
     // These four statements add characters based on the user selections:
     if (userOptions.hasLowerCase) {
-      possibleChar = possibleChar.concat(lowercase);
-      guarantedChar.push(randomizeArray(lowercase));
+      possibleChar = possibleChar.concat(lowerCase);
+      setPassword.push(lowerCase[Math.floor(Math.random() * lowerCase.length)]);
     }
+
+
     if (userOptions.hasUpperCase) {
       possibleChar = possibleChar.concat(upperCase);
-      guarantedChar.push(randomizeArray(upperCase));
+      setPassword.push(upperCase[Math.floor(Math.random() * upperCase.length)]);
     }
     if (userOptions.hasNumber) {
       possibleChar = possibleChar.concat(number);
-      guarantedChar.push(randomizeArray(number));
+      setPassword.push(number[Math.floor(Math.random() * number.length)]);
     }
     if (userOptions.hasSpecialCharacter) {
       possibleChar = possibleChar.concat(specialCharacter);
-      guarantedChar.push(randomizeArray(specialCharacter));
+      setPassword.push(specialCharacter[Math.floor(Math.random() * specialCharacter.length)]);
     }
+    console.log("Possible characters: " + possibleChar);
+    console.log("Guaranteed characters: " + setPassword);
+
     // for loop to iterate over the password length 
-    for (var i = 0; i <= userLength; i++) {
-      resultChar.push(possibleChar[Math.floor(Math.random() * possibleChar.length)]);
+    for (var i = 0; i < userLength; i++) {
+      guaranteedChar.push(possibleChar[Math.floor(Math.random() * possibleChar.length)]);
     }
 
     // for loop  to make sure at least one of each of the guaranteed characters mix in to the password
-    for (var i = 0; i <= userLength; i++) {
-      resultChar.push(guaranteedChar[Math.floor(Math.random() * guaranteedChar.length)]);
+    for (var i = 0; i < (userLength - 4); i++) {
+      setPassword.push(guaranteedChar[Math.floor(Math.random() * guaranteedChar.length)]);
     }
-    // return the result and make it a string to pass into writePassword
-    return result.join("");
+
+    // Fisher-Yates shuffle
+    function shuffleArray(setPassword) {
+      let curId = setPassword.length;
+      // There remain elements to shuffle
+      while (0 !== curId) {
+        // Pick a remaining element
+        let randId = Math.floor(Math.random() * curId);
+        curId -= 1;
+        // Swap it with the current element.
+        let tmp = setPassword[curId];
+        setPassword[curId] = setPassword[randId];
+        setPassword[randId] = tmp;
+      }
+      return setPassword;
+    }
+    setPassword = shuffleArray(setPassword);
+
+
+
   }
+  console.log(setPassword);
+
+  // Convert from CSV to string
+  password = setPassword.join("");
+  // Spit out the result
+  return password;
 }
 
-
-
-
+// STARTER CODE:
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
@@ -128,7 +152,5 @@ function writePassword() {
 
 }
 
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
