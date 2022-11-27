@@ -1,17 +1,15 @@
 // Assignment code here
 
-// Variables:
-var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var specialCharacter = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "?", "/", "-", ":", ";", "[", "]", "{", "}", ".", "<", ">", "=", "_", "`", "|", "~"];
-
-
 // Start of the function!
 function generatePassword() {
-
   console.log("Here we go!");
 
+  // Variables:
+  var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+  var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  var specialCharacter = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "?", "/", "-", ":", ";", "[", "]", "{", "}", ".", "<", ">", "=", "_", "`", "|", "~"];
+  var characterCounter = 0
   // Array for results as they are generated
   var setPassword = [];
   // Array for the types of characters to include
@@ -22,6 +20,7 @@ function generatePassword() {
   var userLength = parseInt(
     prompt("Please enter a password length between 8-128.")
   );
+
   console.log(userLength);
 
   // Is it a numeric value?
@@ -51,6 +50,7 @@ function generatePassword() {
     return null;
   }
 
+
   // See the results
   console.log(hasLowerCase);
   console.log(hasUpperCase);
@@ -65,72 +65,66 @@ function generatePassword() {
     hasNumber: hasNumber,
     hasSpecialCharacter: hasSpecialCharacter
   };
-  randomizePassword();
+
+  // randomizePassword();
   console.log(charactersIncluded);
 
   // Generate the actual password
-  function randomizePassword() {
 
-    // New variable based on the user input
-    var userOptions = charactersIncluded;
+  // New variable based on the user input
+  var userOptions = charactersIncluded;
 
-    // Make sure the user selected options
-    if (!userOptions) {
-      return null;
-    }
-
-    // These four statements add characters based on the user selections:
-    if (userOptions.hasLowerCase) {
-      possibleChar = possibleChar.concat(lowerCase);
-      setPassword.push(lowerCase[Math.floor(Math.random() * lowerCase.length)]);
-    }
-
-
-    if (userOptions.hasUpperCase) {
-      possibleChar = possibleChar.concat(upperCase);
-      setPassword.push(upperCase[Math.floor(Math.random() * upperCase.length)]);
-    }
-    if (userOptions.hasNumber) {
-      possibleChar = possibleChar.concat(number);
-      setPassword.push(number[Math.floor(Math.random() * number.length)]);
-    }
-    if (userOptions.hasSpecialCharacter) {
-      possibleChar = possibleChar.concat(specialCharacter);
-      setPassword.push(specialCharacter[Math.floor(Math.random() * specialCharacter.length)]);
-    }
-    console.log("Possible characters: " + possibleChar);
-    console.log("Guaranteed characters: " + setPassword);
-
-    // for loop to iterate over the password length 
-    for (var i = 0; i < userLength; i++) {
-      guaranteedChar.push(possibleChar[Math.floor(Math.random() * possibleChar.length)]);
-    }
-
-    // for loop  to make sure at least one of each of the guaranteed characters mix in to the password
-    for (var i = 0; i < (userLength - 4); i++) {
-      setPassword.push(guaranteedChar[Math.floor(Math.random() * guaranteedChar.length)]);
-    }
-
-    // Fisher-Yates shuffle
-    function shuffleArray(setPassword) {
-      let curId = setPassword.length;
-      // There remain elements to shuffle
-      while (0 !== curId) {
-        // Pick a remaining element
-        let randId = Math.floor(Math.random() * curId);
-        curId -= 1;
-        // Swap it with the current element.
-        let tmp = setPassword[curId];
-        setPassword[curId] = setPassword[randId];
-        setPassword[randId] = tmp;
-      }
-      return setPassword;
-    }
-    setPassword = shuffleArray(setPassword);
-
-
-
+  // These four statements add characters based on the user selections:
+  if (userOptions.hasLowerCase) {
+    possibleChar = possibleChar.concat(lowerCase);
+    guaranteedChar.push(lowerCase[Math.floor(Math.random() * lowerCase.length)]);
+    characterCounter++;
   }
+
+  if (userOptions.hasUpperCase) {
+    possibleChar = possibleChar.concat(upperCase);
+    guaranteedChar.push(upperCase[Math.floor(Math.random() * upperCase.length)]);
+    characterCounter++;
+  }
+  if (userOptions.hasNumber) {
+    possibleChar = possibleChar.concat(number);
+    guaranteedChar.push(number[Math.floor(Math.random() * number.length)]);
+    characterCounter++;
+  }
+  if (userOptions.hasSpecialCharacter) {
+    possibleChar = possibleChar.concat(specialCharacter);
+    guaranteedChar.push(specialCharacter[Math.floor(Math.random() * specialCharacter.length)]);
+    characterCounter++;
+  }
+  console.log("Character types: " + characterCounter)
+  console.log("Possible characters: " + possibleChar);
+  console.log("Guaranteed characters: " + guaranteedChar);
+
+  // for loop to iterate over the password length 
+  for (var i = 0; i < (userLength - characterCounter); i++) {
+    guaranteedChar.push(possibleChar[Math.floor(Math.random() * possibleChar.length)]);
+  }
+
+  console.log("First shuffle " + guaranteedChar)
+
+  // Fisher-Yates shuffle
+  function shuffleArray(guaranteedChar) {
+    var curId = guaranteedChar.length;
+    // There remain elements to shuffle
+    while (0 !== curId) {
+      // Pick a remaining element
+      var randId = Math.floor(Math.random() * curId);
+      curId -= 1;
+      // Swap it with the current element.
+      let tmp = guaranteedChar[curId];
+      guaranteedChar[curId] = guaranteedChar[randId];
+      guaranteedChar[randId] = tmp;
+    }
+    return guaranteedChar;
+  }
+  
+  setPassword = shuffleArray(guaranteedChar);
+
   console.log(setPassword);
 
   // Convert from CSV to string
