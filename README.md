@@ -14,9 +14,9 @@ At least one option must be selected.
 
 ## Mock-Up
 
-The following animation shows the web application's appearance and functionality:
+The following is an image of the website as it displays on load:
 
-![website demo](./assets/images/password_nav_crop.gif)
+![website demo](./assets/images/site_preview.png)
 
 
 ## Installation
