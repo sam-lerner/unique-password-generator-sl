@@ -16,7 +16,7 @@ At least one option must be selected.
 
 The following is an image of the website as it displays on load:
 
-![website demo](./assets/images/site_preview.png)
+![website demo](./assets/images/site_preview.jpg)
 
 
 ## Installation
