@@ -16,7 +16,7 @@ At least one option must be selected.
 
 The following animation shows the web application's appearance and functionality:
 
-![portfolio demo](./assets/images/password_nav.gif)
+![website demo](./assets/images/password_nav_crop.gif)
 
 
 ## Installation
