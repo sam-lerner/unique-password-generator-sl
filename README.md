@@ -16,7 +16,7 @@ At least one option must be selected.
 
 The following is an animation of the expected website interaction:
 
-![website demo](./password_nav_crop.gif)
+![website demo](./assets/images/password_nav_crop.gif)
 
 
 ## Installation
