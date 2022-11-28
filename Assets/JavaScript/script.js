@@ -2,7 +2,7 @@
 
 // Start of the function!
 function generatePassword() {
-  console.log("Here we go!");
+  console.log("function generatePassword");
 
   // Variables:
   var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -50,13 +50,6 @@ function generatePassword() {
     return null;
   }
 
-
-  // See the results
-  console.log(hasLowerCase);
-  console.log(hasUpperCase);
-  console.log(hasNumber);
-  console.log(hasSpecialCharacter);
-
   // Store the user inputs
   var charactersIncluded = {
     userLength: userLength,
@@ -66,7 +59,6 @@ function generatePassword() {
     hasSpecialCharacter: hasSpecialCharacter
   };
 
-  // randomizePassword();
   console.log(charactersIncluded);
 
   // Generate the actual password
@@ -105,7 +97,7 @@ function generatePassword() {
     guaranteedChar.push(possibleChar[Math.floor(Math.random() * possibleChar.length)]);
   }
 
-  console.log("First shuffle " + guaranteedChar)
+  console.log("Before shuffle " + guaranteedChar)
 
   // Fisher-Yates shuffle
   function shuffleArray(guaranteedChar) {
